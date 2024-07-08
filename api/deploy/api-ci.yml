@@ -1,0 +1,30 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: UseNode@1
+  inputs:
+    version: "16.x"
+    checkLatest: true
+
+- task: npmAuthenticate@0
+  displayName: 'npm Authenticate .npmrc'
+  inputs:
+    workingFile: "$(Build.SourcesDirectory)/api/.npmrc"
+
+- task: Npm@1
+  displayName: "npm install"
+  inputs:
+    workingDir: "$(Build.SourcesDirectory)/api"
+    command: "install"
+    verbose: true
+
+- task: Npm@1
+  displayName: "npm build"
+  inputs:
+    workingDir: "$(Build.SourcesDirectory)/api"
+    command: "custom"
+    customCommand: "run build"
