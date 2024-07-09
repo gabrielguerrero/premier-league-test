@@ -1,8 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+html * {
+  font-family: Poppins, PremierSans-Heavy,Arial,Helvetica Neue,Helvetica,sans-serif;
+}
+
+.bg-premier-purple {
+  background-color: rgb(55, 0, 60);
+}
+
+.text-premier-purple {
+  color: rgb(55, 0, 60);
+}
+
+.premier-button {
+  @apply bg-gray-100 font-bold py-1 sm:py-2 px-2 sm:px-4 rounded h-14;
+  color: rgb(55, 0, 60);
+  &.selected {
+    @apply bg-premier-purple text-white ;
+  }
+}

@@ -38,15 +38,18 @@ importers:
       '@angular/router':
         specifier: ^18.0.6
         version: 18.0.6(@angular/common@18.0.6(@angular/core@18.0.6(rxjs@7.5.7)(zone.js@0.14.7))(rxjs@7.5.7))(@angular/core@18.0.6(rxjs@7.5.7)(zone.js@0.14.7))(@angular/platform-browser@18.0.6(@angular/animations@18.0.6(@angular/core@18.0.6(rxjs@7.5.7)(zone.js@0.14.7)))(@angular/common@18.0.6(@angular/core@18.0.6(rxjs@7.5.7)(zone.js@0.14.7))(rxjs@7.5.7))(@angular/core@18.0.6(rxjs@7.5.7)(zone.js@0.14.7)))(rxjs@7.5.7)
+      '@ngrx-traits/signals':
+        specifier: ^18.0.0-beta.3
+        version: 18.0.0-beta.3(@angular/common@18.0.6(@angular/core@18.0.6(rxjs@7.5.7)(zone.js@0.14.7))(rxjs@7.5.7))(@angular/core@18.0.6(rxjs@7.5.7)(zone.js@0.14.7))(@ngrx/signals@18.0.0-rc.2(@angular/core@18.0.6(rxjs@7.5.7)(zone.js@0.14.7))(rxjs@7.5.7))(rxjs@7.5.7)
+      '@ngrx/signals':
+        specifier: 18.0.0-rc.2
+        version: 18.0.0-rc.2(@angular/core@18.0.6(rxjs@7.5.7)(zone.js@0.14.7))(rxjs@7.5.7)
       rxjs:
         specifier: ~7.5.0
         version: 7.5.7
       tslib:
         specifier: ^2.3.0
         version: 2.6.3
-      zone.js:
-        specifier: ~0.14.7
-        version: 0.14.7
     devDependencies:
       '@angular-devkit/build-angular':
         specifier: ^18.0.7
@@ -84,6 +87,12 @@ importers:
       postcss:
         specifier: ^8.4.39
         version: 8.4.39
+      prettier:
+        specifier: ^3.3.2
+        version: 3.3.2
+      spectator:
+        specifier: ^0.0.4
+        version: 0.0.4
       tailwindcss:
         specifier: ^3.4.4
         version: 3.4.4
@@ -1445,6 +1454,22 @@ packages:
     resolution: {integrity: sha512-x0fWaQtYp4E6sktbsdAqnehxDgEc/VwM7uLsRCYWaiGu0ykYdZPiS8zCWdnjHwyiumousxfBm4SO31eXqwEZhQ==}
     cpu: [x64]
     os: [win32]
+
+  '@ngrx-traits/signals@18.0.0-beta.3':
+    resolution: {integrity: sha512-ADyXTHw850xEPKWQYNW47bxmuUTRRxYhfpDqyNdQXc9TcS+O6WO9850WQu9A5ivhBrIAEjvtKtX8gbkZRTCOxw==}
+    peerDependencies:
+      '@angular/core': ^18.0.5
+      '@ngrx/signals': ^18.0.0-rc.2
+      rxjs: ^7.8.1
+
+  '@ngrx/signals@18.0.0-rc.2':
+    resolution: {integrity: sha512-KFj0I5seMVVqqXaoBqeQiR/+dKho4n+Ry/RmaAfa3f0rgYhfaxNTo7U39B7udIYjJf8Z+eYPmBFJEU3HGQU0mA==}
+    peerDependencies:
+      '@angular/core': ^18.0.0
+      rxjs: ^6.5.3 || ^7.4.0
+    peerDependenciesMeta:
+      rxjs:
+        optional: true
 
   '@ngtools/webpack@18.0.7':
     resolution: {integrity: sha512-lXTy+SpLpoO5verX7TGTxV3sbD9MGWxMwJGdXA7DwZcVtDe5t38ZntzJUm7OpxWjRZ/OJn6JLmURNLcVNHzp9g==}
@@ -3016,6 +3041,10 @@ packages:
     resolution: {integrity: sha512-gvVijfZvn7R+2qyPX8mAuKcFGDf6Nc61GdvGafQsHL0sBIxfKzA+usWn4GFC/bk+QdwPUD4kWFJLhElipq+0VA==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
+  lodash-node@2.4.1:
+    resolution: {integrity: sha512-egEt8eNQp2kZWRmngahiqMoDCDCENv3uM188S7Ed5t4k3v6RrLELXC+FqLNMUnhCo7gvQX3G1V8opK/Lcslahg==}
+    deprecated: This package is discontinued. Use lodash@^4.0.0.
+
   lodash.debounce@4.0.8:
     resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
 
@@ -3541,6 +3570,11 @@ packages:
     resolution: {integrity: sha512-0vzE+lAiG7hZl1/9I8yzKLx3aR9Xbof3fBHKunvMfOCYAtMhrsnccJY2iTURb9EZd5+pLuiNV9/c/GZJOHsgIw==}
     engines: {node: ^10 || ^12 || >=14}
 
+  prettier@3.3.2:
+    resolution: {integrity: sha512-rAVeHYMcv8ATV5d508CFdn+8/pHPpXeIid1DdrPwXnaAdH7cqjVbpJaT5eq4yRAFU/lsbwYwSF/n5iNrdJHPQA==}
+    engines: {node: '>=14'}
+    hasBin: true
+
   proc-log@3.0.0:
     resolution: {integrity: sha512-++Vn7NS4Xf9NacaU9Xq3URUuqZETPsf8L4j5/ckhaRYsfPeRyzGw+iDjFhV/Jr3uNmTvvddEJFWh5R1gRgUH8A==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
@@ -3908,6 +3942,10 @@ packages:
   spdy@4.0.2:
     resolution: {integrity: sha512-r46gZQZQV+Kl9oItvl1JZZqJKGr+oEkB08A6BzkiR7593/7IbtuncXHd2YoYeTsG4157ZssMu9KYvUHLcjcDoA==}
     engines: {node: '>=6.0.0'}
+
+  spectator@0.0.4:
+    resolution: {integrity: sha512-jbPMKyoWuZcaXhrPPMaYlIPOmsTYVqtnpxKhy6eid0iDP/wH4Pa4/wcQvhoYLBb+C1Y3nbQe4N/7m7gL3cpdVg==}
+    engines: {node: '>= 0.8.0'}
 
   sprintf-js@1.1.3:
     resolution: {integrity: sha512-Oo+0REFV59/rz3gfJNKQiBlwfHaSESl1pcGyABQsnnIfWOFt6JNj5gCog2U6MLZ//IGYD+nA8nI+mTShREReaA==}
@@ -6326,6 +6364,24 @@ snapshots:
   '@msgpackr-extract/msgpackr-extract-win32-x64@3.0.3':
     optional: true
 
+  '@ngrx-traits/signals@18.0.0-beta.3(@angular/common@18.0.6(@angular/core@18.0.6(rxjs@7.5.7)(zone.js@0.14.7))(rxjs@7.5.7))(@angular/core@18.0.6(rxjs@7.5.7)(zone.js@0.14.7))(@ngrx/signals@18.0.0-rc.2(@angular/core@18.0.6(rxjs@7.5.7)(zone.js@0.14.7))(rxjs@7.5.7))(rxjs@7.5.7)':
+    dependencies:
+      '@angular/core': 18.0.6(rxjs@7.5.7)(zone.js@0.14.7)
+      '@ngrx/signals': 18.0.0-rc.2(@angular/core@18.0.6(rxjs@7.5.7)(zone.js@0.14.7))(rxjs@7.5.7)
+      rxjs: 7.5.7
+      tslib: 2.6.3
+    optionalDependencies:
+      '@angular/cdk': 18.0.6(@angular/common@18.0.6(@angular/core@18.0.6(rxjs@7.5.7)(zone.js@0.14.7))(rxjs@7.5.7))(@angular/core@18.0.6(rxjs@7.5.7)(zone.js@0.14.7))(rxjs@7.5.7)
+    transitivePeerDependencies:
+      - '@angular/common'
+
+  '@ngrx/signals@18.0.0-rc.2(@angular/core@18.0.6(rxjs@7.5.7)(zone.js@0.14.7))(rxjs@7.5.7)':
+    dependencies:
+      '@angular/core': 18.0.6(rxjs@7.5.7)(zone.js@0.14.7)
+      tslib: 2.6.3
+    optionalDependencies:
+      rxjs: 7.5.7
+
   '@ngtools/webpack@18.0.7(@angular/compiler-cli@18.0.6(@angular/compiler@18.0.6(@angular/core@18.0.6(rxjs@7.5.7)(zone.js@0.14.7)))(typescript@5.4.5))(typescript@5.4.5)(webpack@5.91.0(esbuild@0.21.3))':
     dependencies:
       '@angular/compiler-cli': 18.0.6(@angular/compiler@18.0.6(@angular/core@18.0.6(rxjs@7.5.7)(zone.js@0.14.7)))(typescript@5.4.5)
@@ -8074,6 +8130,8 @@ snapshots:
     dependencies:
       p-locate: 6.0.0
 
+  lodash-node@2.4.1: {}
+
   lodash.debounce@4.0.8: {}
 
   lodash@4.17.21: {}
@@ -8621,6 +8679,8 @@ snapshots:
       picocolors: 1.0.1
       source-map-js: 1.2.0
 
+  prettier@3.3.2: {}
+
   proc-log@3.0.0: {}
 
   proc-log@4.2.0: {}
@@ -9046,6 +9106,10 @@ snapshots:
       spdy-transport: 3.0.0
     transitivePeerDependencies:
       - supports-color
+
+  spectator@0.0.4:
+    dependencies:
+      lodash-node: 2.4.1
 
   sprintf-js@1.1.3: {}
 
