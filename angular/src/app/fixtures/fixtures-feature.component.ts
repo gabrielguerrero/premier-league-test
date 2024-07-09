@@ -13,13 +13,13 @@ import { toSignal } from '@angular/core/rxjs-interop';
   standalone: true,
   template: `
     <h1
-      class="text-premier-purple text-8xl text-center flex gap-4 justify-center align-middle items-center"
+      class="text-premier-purple text-center flex gap-4 justify-center align-middle items-center"
     >
       <img
         class="w-16 aspect-auto hidden sm:block"
         src="https://www.premierleague.com/resources/rebrand/v7.149.1/i/elements/pl-main-logo.png"
         alt="Premier League Logo"
-      /><span class="font-bold">Fixture Predictor</span>
+      /><span class="font-bold text-4xl sm:text-6xl">Fixture Predictor</span>
     </h1>
     <div class="bg-premier-purple flex justify-center">
       <div class="px-4 py-8 grid sm:grid-cols-[auto,1fr] gap-4 max-w-7xl">
@@ -58,7 +58,6 @@ import { toSignal } from '@angular/core/rxjs-interop';
     </div>
   `,
   imports: [FixtureListComponent, FixtureDetailComponent, MatProgressSpinner],
-  providers: [FixturesStore],
 })
 export class FixturesFeatureComponent {
   store = inject(FixturesStore);

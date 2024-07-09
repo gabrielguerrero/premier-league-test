@@ -2,11 +2,12 @@ import { Component, input, output } from '@angular/core';
 import { FixtureWithPrediction, Prediction } from '../model';
 import { DatePipe, NgOptimizedImage } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
+import { FixtureComponent } from './fixture.component';
 
 @Component({
   selector: 'fixture-detail',
   standalone: true,
-  imports: [NgOptimizedImage, DatePipe, MatIcon],
+  imports: [NgOptimizedImage, DatePipe, MatIcon, FixtureComponent],
   host: { class: 'h-full block' },
   template: `
     <div class="rounded-xl bg-white border text-premier-purple h-full">
@@ -82,6 +83,7 @@ import { MatIcon } from '@angular/material/icon';
             <button
               class="premier-button"
               [class.selected]="fixture().prediction === 'home'"
+              [attr.aria-pressed]="fixture().prediction === 'home'"
               (click)="predictionChange.emit('home')"
             >
               {{ fixture().home.label }}
@@ -89,6 +91,7 @@ import { MatIcon } from '@angular/material/icon';
             <button
               class="premier-button"
               [class.selected]="fixture().prediction === 'draw'"
+              [attr.aria-pressed]="fixture().prediction === 'draw'"
               (click)="predictionChange.emit('draw')"
             >
               Draw
@@ -96,6 +99,7 @@ import { MatIcon } from '@angular/material/icon';
             <button
               class="premier-button"
               [class.selected]="fixture().prediction === 'away'"
+              [attr.aria-pressed]="fixture().prediction === 'away'"
               (click)="predictionChange.emit('away')"
             >
               {{ fixture().away.label }}

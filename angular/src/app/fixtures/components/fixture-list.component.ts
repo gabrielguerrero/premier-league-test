@@ -7,11 +7,16 @@ import { FixtureComponent } from './fixture.component';
   standalone: true,
   imports: [FixtureComponent],
   template: `
-    <div class="grid bg-white rounded-xl divide-y overflow-hidden border">
+    <div
+      role="listbox"
+      class="grid bg-white rounded-xl divide-y overflow-hidden border"
+    >
       @for (fixture of fixtures(); track fixture.id) {
         <fixture
           [fixture]="fixture"
           class="text-premier-purple"
+          role="option"
+          [attr.aria-selected]="fixture === selectedFixture()"
           [class.selected]="fixture === selectedFixture()"
           (click)="selectedFixtureChange.emit(fixture)"
         />

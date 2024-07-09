@@ -1,10 +1,4 @@
-import {
-  patchState,
-  signalStore,
-  type,
-  withComputed,
-  withMethods,
-} from '@ngrx/signals';
+import { patchState, signalStore, type, withMethods } from '@ngrx/signals';
 import {
   entityConfig,
   updateEntity,
@@ -18,8 +12,6 @@ import {
   withCallStatus,
   withEntitiesLoadingCall,
   withEntitiesSingleSelection,
-  withStateLogger,
-  withSyncToWebStorage,
 } from '@ngrx-traits/signals';
 
 const config = entityConfig({
@@ -27,6 +19,7 @@ const config = entityConfig({
   collection: 'fixtures',
 });
 export const FixturesStore = signalStore(
+  { providedIn: 'root' },
   withEntities(config),
   withCallStatus({ ...config, initialValue: 'loading' }),
   withEntitiesSingleSelection(config),
@@ -34,11 +27,10 @@ export const FixturesStore = signalStore(
     ...config,
     fetchEntities: () => inject(FixtureService).getFixtures(),
   }),
-  withCalls(({ fixturesEntitySelected }) => ({
+  withCalls(() => ({
     loadFixtureDetail: ({ id }: { id: number }) =>
       inject(FixtureService).getFixture(id),
   })),
-  // withStateLogger({ name: 'FixturesStore' }),
   withMethods(
     ({
       fixturesEntitySelected,
@@ -59,7 +51,6 @@ export const FixturesStore = signalStore(
       };
     },
   ),
-  // withSyncToWebStorage({ key: 'FixturesStore', type: 'local' }),
 );
 
 // export const FixturesStore = signalStore(
