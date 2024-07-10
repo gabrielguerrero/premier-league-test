@@ -22,39 +22,47 @@ import { toSignal } from '@angular/core/rxjs-interop';
       /><span class="font-bold text-4xl sm:text-6xl">Fixture Predictor</span>
     </h1>
     <div class="bg-premier-purple flex justify-center">
-      <div class="px-4 py-8 grid sm:grid-cols-[auto,1fr] gap-4 max-w-7xl">
-        <fixture-list
-          [class.hidden]="isMobile() && store.fixturesEntitySelected()"
-          [fixtures]="store.fixturesEntities()"
-          [selectedFixture]="store.fixturesEntitySelected()"
-          (selectedFixtureChange)="select($event)"
-        />
+      @if (store.isFixturesLoaded()) {
+        <div class="px-4 py-8 grid sm:grid-cols-[auto,1fr] gap-4 max-w-7xl">
+          <fixture-list
+            [class.hidden]="isMobile() && store.fixturesEntitySelected()"
+            [fixtures]="store.fixturesEntities()"
+            [selectedFixture]="store.fixturesEntitySelected()"
+            (selectedFixtureChange)="this.store.selectFixturesEntity($event)"
+          />
 
-        <div class="grid">
-          @if (store.fixturesEntitySelected()) {
-            <div class="sm:hidden">
-              <button
-                class="premier-button  mb-4"
-                (click)="store.deselectFixturesEntity()"
+          <div class="grid">
+            @if (store.fixturesEntitySelected()) {
+              <div class="sm:hidden">
+                <button
+                  class="premier-button  mb-4"
+                  (click)="store.deselectFixturesEntity()"
+                >
+                  Back
+                </button>
+              </div>
+              <fixture-detail
+                [fixture]="store.fixturesEntitySelected()!"
+                (predictionChange)="store.predict($event)"
+                class="h-full"
+              />
+            } @else {
+              <div
+                [class.hidden]="isMobile()"
+                class="text-white font-bold text-xl h-full text-center content-center p-8"
               >
-                Back
-              </button>
-            </div>
-            <fixture-detail
-              [fixture]="store.fixturesEntitySelected()!"
-              (predictionChange)="store.predict($event)"
-              class="h-full"
-            />
-          } @else {
-            <div
-              [class.hidden]="isMobile()"
-              class="text-white font-bold text-xl h-full text-center content-center p-8"
-            >
-              Please select a fixture
-            </div>
-          }
+                Please select a fixture
+              </div>
+            }
+          </div>
         </div>
-      </div>
+      } @else {
+        <mat-progress-spinner
+          class="m-8"
+          [diameter]="100"
+          [mode]="'indeterminate'"
+        />
+      }
     </div>
   `,
   imports: [FixtureListComponent, FixtureDetailComponent, MatProgressSpinner],
@@ -67,9 +75,4 @@ export class FixturesFeatureComponent {
       .observe('(max-width: 640px)')
       .pipe(map((result) => result.matches)),
   );
-
-  select(fixture: FixtureWithPrediction) {
-    this.store.selectFixturesEntity(fixture);
-    this.store.loadFixtureDetail({ id: fixture.id });
-  }
 }

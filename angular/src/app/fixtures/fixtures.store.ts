@@ -1,11 +1,20 @@
-import { patchState, signalStore, type, withMethods } from '@ngrx/signals';
+import {
+  patchState,
+  signalStore,
+  type,
+  withComputed,
+  withHooks,
+  withMethods,
+  withState,
+} from '@ngrx/signals';
 import {
   entityConfig,
+  setAllEntities,
   updateEntity,
   withEntities,
 } from '@ngrx/signals/entities';
 import { FixtureWithPrediction, Prediction } from './model';
-import { inject } from '@angular/core';
+import { computed, inject } from '@angular/core';
 import { FixtureService } from './fixture.service';
 import {
   withCalls,
@@ -13,24 +22,27 @@ import {
   withEntitiesLoadingCall,
   withEntitiesSingleSelection,
 } from '@ngrx-traits/signals';
+import { rxMethod } from '@ngrx/signals/rxjs-interop';
+import { exhaustMap, pipe, tap, catchError, of } from 'rxjs';
 
 const config = entityConfig({
   entity: type<FixtureWithPrediction>(),
   collection: 'fixtures',
 });
+
 export const FixturesStore = signalStore(
   { providedIn: 'root' },
   withEntities(config),
+  // 👇 adds fixturesStatus to the store, and computed signals like isFixturesLoaded, isFixturesError, isFixturesLoading
+  //  and methods setFixturesLoaded, setFixturesError, setFixturesLoading
   withCallStatus({ ...config, initialValue: 'loading' }),
+  // 👇 adds fixturesEntitySelectedId,  fixturesEntitySelected and methods selectFixturesEntity, deselectFixturesEntity
   withEntitiesSingleSelection(config),
+  // 👇 this will fetchEntities when  the fixturesStatus is in loading, and store the results, change status and handle errors
   withEntitiesLoadingCall({
     ...config,
     fetchEntities: () => inject(FixtureService).getFixtures(),
   }),
-  withCalls(() => ({
-    loadFixtureDetail: ({ id }: { id: number }) =>
-      inject(FixtureService).getFixture(id),
-  })),
   withMethods(
     ({
       fixturesEntitySelected,
@@ -53,7 +65,13 @@ export const FixturesStore = signalStore(
   ),
 );
 
+/**
+ * The code bellow is a version of FixturesStore but without the use of the @ngrx-traits/signals is just pure @ngrx/signals
+ * in case you want to see the difference between the two and in case you dont understand the code above, both work the same, all test pass with both
+ */
+
 // export const FixturesStore = signalStore(
+//   { providedIn: 'root' },
 //   withState<{
 //     status: 'loading' | 'loaded' | 'error';
 //     selectedFixtureId: number | undefined;
@@ -61,13 +79,18 @@ export const FixturesStore = signalStore(
 //     status: 'loading',
 //     selectedFixtureId: undefined,
 //   }),
-//   withEntities({ entity: type<FixtureWithPrediction>() }),
-//   withComputed(({ entityMap, selectedFixtureId }) => ({
-//     selectedFixture: computed(() =>
-//       selectedFixtureId() ? entityMap()[selectedFixtureId()!] : undefined,
+//   withEntities(config),
+//   withComputed(({ fixturesEntityMap, selectedFixtureId, status }) => ({
+//     fixturesEntitySelected: computed(() =>
+//       selectedFixtureId()
+//         ? fixturesEntityMap()[selectedFixtureId()!]
+//         : undefined,
 //     ),
+//     isFixturesLoaded: computed(() => status() === 'loaded'),
+//     isFixturesError: computed(() => status() === 'loading'),
+//     isFixturesLoading: computed(() => status() === 'error'),
 //   })),
-//   withMethods((state) => {
+//   withMethods(({ fixturesEntitySelected, ...state }) => {
 //     const fixtureService = inject(FixtureService);
 //     return {
 //       loadFixtures: rxMethod<void>(
@@ -75,17 +98,42 @@ export const FixturesStore = signalStore(
 //           tap(() => {
 //             patchState(state, { status: 'loading' });
 //           }),
-//           exhaustMap(() => fixtureService.getFixtures().pipe()),
+//           exhaustMap(() =>
+//             fixtureService.getFixtures().pipe(
+//               tap((results) =>
+//                 patchState(state, setAllEntities(results, config), {
+//                   status: 'loaded',
+//                 }),
+//               ),
+//               catchError(() => {
+//                 patchState(state, { status: 'error' });
+//                 return of();
+//               }),
+//             ),
+//           ),
 //         ),
 //       ),
-//       getFixtureDetail: rxMethod<{ id: number }>(
-//         pipe(exhaustMap(({ id }) => fixtureService.getFixture(id))),
-//       ),
-//       predict: ({ id, prediction }: { id: number; prediction: Prediction }) => {
-//         patchState(state, updateEntity({ id, changes: { prediction } }));
+//       predict: (prediction: Prediction) => {
+//         const fixture = fixturesEntitySelected();
+//
+//         fixture &&
+//           patchState(
+//             state,
+//             updateEntity({ id: fixture.id, changes: { prediction } }, config),
+//           );
 //       },
-//       selectFixture: ({ id }: { id: number }) => {
+//       selectFixturesEntity: ({ id }: { id: number }) => {
 //         patchState(state, { selectedFixtureId: id });
+//       },
+//       deselectFixturesEntity: () => {
+//         patchState(state, { selectedFixtureId: undefined });
+//       },
+//     };
+//   }),
+//   withHooks(({ loadFixtures }) => {
+//     return {
+//       onInit: () => {
+//         loadFixtures();
 //       },
 //     };
 //   }),

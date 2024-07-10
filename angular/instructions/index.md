@@ -30,7 +30,7 @@ You have been provided the following to complete the task:
 - [Wireframes](./assets/wireframes)
 - [CSS Variables](./assets/variables.scss)
 - [Logo](./assets/logo.svg)
-- [Fonts](./assets/fonts)
+- [Fonts](../src/assets/fonts)
 
 ---
 ## User Requirements

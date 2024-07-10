@@ -3,12 +3,83 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@font-face {
+  font-family: PremierSans-Light;
+  src: url("assets/fonts/PremierLeague-Light.otf") format("opentype")
+}
+
+
+@font-face {
+  font-family: PremierSans-Regular;
+  src: url("assets/fonts/PremierLeague-Regular.otf") format("opentype")
+}
+
+.light {
+  font-family: PremierSans-Light,Arial,Helvetica Neue,Helvetica,sans-serif
+}
+
+.heavy,.light {
+  font-weight: 400
+}
+
+.heavy {
+  font-family: PremierSans-Bold,Arial,Helvetica Neue,Helvetica,sans-serif
+}
+
+.pageTitle {
+  font-size: 7.6rem;
+  line-height: 9.1rem
+}
+
+@media (max-width: 700px) {
+  .pageTitle {
+    font-size:3rem;
+    line-height: 4.5rem
+  }
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: PremierSans-Bold,Arial,Helvetica Neue,Helvetica,sans-serif;
+  font-weight: 400
+}
+
+
+p {
+  color: #37003c;
+  line-height: 1.6
+}
+
+p a {
+  text-decoration: none;
+  color: #963cff
+}
+
+p a:hover {
+  text-decoration: underline
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale
+}
+
+body {
+  background: #fff;
+  font-family: PremierSans-Regular,Arial,Helvetica Neue,Helvetica,sans-serif;
+  font-weight: 400;
+  color: #37003c;
+  -webkit-text-size-adjust: 100%;
+  font-size: 1.4rem;
+  min-width: 320px
+}
 html,
 body {
   height: 100%;
 }
 html * {
-  font-family: Poppins, PremierSans-Heavy,Arial,Helvetica Neue,Helvetica,sans-serif;
+  font-family: PremierSans-Regular,Poppins, Arial,Helvetica Neue,Helvetica,sans-serif;
 }
 
 .bg-premier-purple {
@@ -26,3 +97,4 @@ html * {
     @apply bg-premier-purple text-white ;
   }
 }
+
